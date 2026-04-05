@@ -1,0 +1,27 @@
+proyecto tripulacion de prueba..
+
+nombre de la rama 1 = Politica
+perosona a cargo: Francisco Javier
+noticia 1:
+
+noticia 2:
+
+noticia 3:
+
+
+nombre de la rama 2 = Actualidades
+perosona a cargo: Juan Sebastian
+noticia 1:
+
+noticia 2:
+
+noticia 3:
+
+
+nombre de la rama 3 = Deportes
+perosona a cargo: Carlos Alberto
+noticia 1:
+
+noticia 2:
+
+noticia 3:
