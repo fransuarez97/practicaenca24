@@ -20,8 +20,8 @@ noticia 3:
 
 nombre de la rama 3 = Deportes
 perosona a cargo: Carlos Alberto
-noticia 1:
+noticia 1: Cristiano Ronaldo y Messi deciden culminar su vida futbulistica en el union mandalena para sacarlo de la B
 
-noticia 2:
+noticia 2: Mbape decide hacerse un cambio de genero, ahora le gustan los therians
 
-noticia 3:
+noticia 3: El pibe valderrama decide cortarse el cabello si colombia gana el mundual 
