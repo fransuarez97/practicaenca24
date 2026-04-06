@@ -1,279 +1,248 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora ENCA24 - Pro</title>
+    <style>
+        /* ===== ESTILO GENERAL ===== */
+        body {
+            background: #1b1b1b;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: white;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        .contenedor {
+            display: grid;
+            grid-template-columns: 250px 320px 280px;
+            gap: 20px;
+            align-items: start;
+        }
 
-<title>Calculadora ENCA24</title>
+        /* ===== HISTORIAL ===== */
+        .historial {
+            background: #000;
+            padding: 15px;
+            border-radius: 10px;
+            height: 440px;
+            overflow-y: auto;
+            border: 1px solid #333;
+        }
 
-<style>
+        /* ===== CALCULADORA ===== */
+        .calculadora {
+            background: #000;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
+        }
 
-/* ===== ESTILO GENERAL ===== */
+        .pantalla {
+            background: #111;
+            font-size: 32px;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: right;
+            margin-bottom: 15px;
+            height: 40px;
+            border: 1px solid #222;
+        }
 
-body{
-background:#1b1b1b;
-font-family:Arial;
-color:white;
-margin:0;
-padding:20px;
-display:flex;
-justify-content:center;
-}
+        /* ===== BOTONES CON HOVER ===== */
+        .botones {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
 
-/* ===== CONTENEDOR PRINCIPAL ===== */
+        button {
+            padding: 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50%;
+            background: #2a2a2a;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease; /* Transición suave */
+        }
 
-.contenedor{
-display:grid;
-grid-template-columns:250px 320px 250px;
-gap:20px;
-align-items:start;
-}
+        button:hover {
+            background: #444; /* Cambio de color al posicionar ratón */
+            transform: scale(1.05);
+        }
 
-/* ===== HISTORIAL ===== */
+        .operador {
+            background: #ff9500;
+            color: black;
+            font-weight: bold;
+        }
 
-.historial{
-background:black;
-padding:15px;
-border-radius:10px;
-height:420px;
-overflow-y:auto;
-}
+        .operador:hover {
+            background: #ffb54d;
+        }
 
-.historial h2{
-text-align:center;
-margin-bottom:10px;
-}
+        .btn-clear {
+            background: #a5a5a5;
+            color: black;
+        }
 
-/* ===== CALCULADORA ===== */
+        .btn-clear:hover {
+            background: #d4d4d4;
+        }
 
-.calculadora{
-background:black;
-padding:20px;
-border-radius:15px;
-}
+        /* ===== CREDITOS MEJORADOS ===== */
+        .creditos {
+            background: #f4f4f4; /* Fondo claro para que resalten las letras negras */
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            height: 420px;
+            color: #000; /* Letras negras por defecto */
+        }
 
-.pantalla{
-background:#111;
-font-size:28px;
-padding:12px;
-border-radius:10px;
-text-align:right;
-margin-bottom:15px;
-overflow-x:auto;
-}
+        .destacado-rojo {
+            color: #ff0000;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
 
-/* ===== BOTONES ===== */
+        .nombres-estudiantes {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
 
-.botones{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:10px;
-}
-
-button{
-padding:18px;
-font-size:18px;
-border:none;
-border-radius:50%;
-background:#333;
-color:white;
-cursor:pointer;
-}
-
-button:hover{
-background:#555;
-}
-
-.operador{
-background:orange;
-color:black;
-font-weight:bold;
-}
-
-/* ===== CREDITOS ===== */
-
-.creditos{
-background:black;
-padding:20px;
-border-radius:10px;
-text-align:center;
-height:420px;
-}
-
-.creditos h2{
-color:red;
-margin-bottom:20px;
-}
-
-.creditos p{
-line-height:1.8;
-}
-
-/* ===== RESPONSIVE PARA CELULAR ===== */
-
-@media (max-width:900px){
-
-.contenedor{
-grid-template-columns:1fr;
-}
-
-.historial,
-.calculadora,
-.creditos{
-width:100%;
-}
-
-}
-
-</style>
-
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .contenedor { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
-
-
 <body>
 
 <div class="contenedor">
 
+    <div class="historial">
+        <h2 style="text-align:center; color:#ff9500;">Historial</h2>
+        <div id="historial"></div>
+    </div>
 
-<!-- HISTORIAL -->
+    <div class="calculadora">
+        <div class="pantalla" id="pantalla">0</div>
+        <div class="botones">
+            <button class="btn-clear" onclick="limpiar()">C</button>
+            <button class="btn-clear" onclick="borrarUno()">←</button>
+            <button class="operador" onclick="agregar('/')">÷</button>
+            <button class="operador" onclick="agregar('*')">×</button>
 
-<div class="historial">
+            <button onclick="agregar('7')">7</button>
+            <button onclick="agregar('8')">8</button>
+            <button onclick="agregar('9')">9</button>
+            <button class="operador" onclick="agregar('-')">-</button>
 
-<h2>Historial</h2>
+            <button onclick="agregar('4')">4</button>
+            <button onclick="agregar('5')">5</button>
+            <button onclick="agregar('6')">6</button>
+            <button class="operador" onclick="agregar('+')">+</button>
 
-<div id="historial"></div>
+            <button onclick="agregar('1')">1</button>
+            <button onclick="agregar('2')">2</button>
+            <button onclick="agregar('3')">3</button>
+            <button class="operador" style="grid-row: span 2; border-radius: 20px;" onclick="calcular()">=</button>
 
-</div>
+            <button style="grid-column: span 2; border-radius: 20px;" onclick="agregar('0')">0</button>
+            <button onclick="agregar('.')">.</button>
+        </div>
+    </div>
 
-
-<!-- CALCULADORA -->
-
-<div class="calculadora">
-
-<div class="pantalla" id="pantalla">0</div>
-
-<div class="botones">
-
-<button onclick="agregar('7')">7</button>
-<button onclick="agregar('8')">8</button>
-<button onclick="agregar('9')">9</button>
-<button class="operador" onclick="agregar('/')">÷</button>
-
-<button onclick="agregar('4')">4</button>
-<button onclick="agregar('5')">5</button>
-<button onclick="agregar('6')">6</button>
-<button class="operador" onclick="agregar('*')">×</button>
-
-<button onclick="agregar('1')">1</button>
-<button onclick="agregar('2')">2</button>
-<button onclick="agregar('3')">3</button>
-<button class="operador" onclick="agregar('-')">-</button>
-
-<button onclick="agregar('0')">0</button>
-<button onclick="agregar('.')">.</button>
-<button onclick="calcular()">=</button>
-<button class="operador" onclick="agregar('+')">+</button>
-
-<button onclick="limpiar()">C</button>
-
-</div>
-
-</div>
-
-
-<!-- CREDITOS -->
-
-<div class="creditos">
-
-<h2>PATROCINADO POR ENCA24</h2>
-
-<p>
-
-Esta calculadora fue desarrollada con el apoyo del
-
-<br><br>
-
-<b>Profesor Jorge Mario</b>
-
-<br><br>
-
-Colaboradores
-
-<br><br>
-
-Francisco Javier
-<br>
-Juan Sebastián
-
-<br><br>
-
-<b>Dios Roca</b>
-
-</p>
+    <div class="creditos">
+        <p>Calculadora realizada por los estudiantes:</p>
+        <div class="nombres-estudiantes">
+            <b>Carlos Alberto</b><br>
+            <b>Francisco Javier</b><br>
+            <b>Juan Sebastian</b>
+        </div>
+        
+        <p>Y patrocinada por:</p>
+        <p class="destacado-rojo">ENCA24</p>
+        
+        <br>
+        <p>Dirigida por el profesor:</p>
+        <p class="destacado-rojo">JORGE MARIO</p>
+    </div>
 
 </div>
-
-
-</div>
-
 
 <script>
+    let pantalla = document.getElementById("pantalla");
+    let historialDiv = document.getElementById("historial");
+    let operacion = "";
+    let esNuevoNumero = false; // Variable de control para resetear tras resultado
 
-/* ===== VARIABLES ===== */
+    function agregar(valor) {
+        // Si acabamos de dar un resultado y presionamos un número, limpiamos la pantalla
+        if (esNuevoNumero && !isNaN(valor)) {
+            operacion = valor;
+            esNuevoNumero = false;
+        } else {
+            operacion += valor;
+            esNuevoNumero = false;
+        }
+        actualizarPantalla();
+    }
 
-let pantalla = document.getElementById("pantalla")
-let historial = document.getElementById("historial")
+    function actualizarPantalla() {
+        pantalla.innerText = operacion || "0";
+    }
 
-let operacion = ""
+    function calcular() {
+        try {
+            if (operacion === "") return;
+            let resultado = eval(operacion);
+            
+            // Añadir al historial
+            historialDiv.innerHTML = `<div style="border-bottom:1px solid #222; padding:5px;">${operacion} = <strong>${resultado}</strong></div>` + historialDiv.innerHTML;
+            
+            pantalla.innerText = resultado;
+            operacion = resultado.toString();
+            esNuevoNumero = true; // El próximo número que se pulse reseteará la pantalla
+        } catch {
+            pantalla.innerText = "Error";
+            operacion = "";
+        }
+    }
 
-/* ===== AGREGAR NUMERO U OPERADOR ===== */
+    function limpiar() {
+        operacion = "";
+        pantalla.innerText = "0";
+        esNuevoNumero = false;
+    }
 
-function agregar(valor){
+    function borrarUno() {
+        operacion = operacion.slice(0, -1);
+        actualizarPantalla();
+    }
 
-operacion += valor
-pantalla.innerText = operacion
-
-}
-
-
-/* ===== CALCULAR RESULTADO ===== */
-
-function calcular(){
-
-try{
-
-let resultado = eval(operacion)
-
-historial.innerHTML += operacion + " = " + resultado + "<br>"
-
-pantalla.innerText = resultado
-
-operacion = resultado
-
-}
-
-catch{
-
-pantalla.innerText = "Error"
-
-}
-
-}
-
-
-/* ===== LIMPIAR CALCULADORA ===== */
-
-function limpiar(){
-
-operacion = ""
-pantalla.innerText = "0"
-
-}
-
+    /* ===== SOPORTE DE TECLADO ===== */
+    document.addEventListener('keydown', (event) => {
+        const tecla = event.key;
+        
+        if (!isNaN(tecla) || tecla === '.' || tecla === '+' || tecla === '-' || tecla === '*' || tecla === '/') {
+            agregar(tecla);
+        } else if (tecla === 'Enter') {
+            event.preventDefault();
+            calcular();
+        } else if (tecla === 'Escape') {
+            limpiar();
+        } else if (tecla === 'Backspace') {
+            borrarUno();
+        }
+    });
 </script>
 
 </body>
-
 </html>
