@@ -1,114 +1,147 @@
 <!DOCTYPE html>
-<!-- Indica al navegador que estamos usando HTML5 -->
-
 <html lang="es">
-<!-- Idioma de la página -->
 
 <head>
 
 <meta charset="UTF-8">
-<!-- Permite usar tildes y caracteres especiales -->
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Hace que la página se adapte a celulares y tablets -->
 
 <title>Calculadora ENCA24</title>
-<!-- Título que aparece en la pestaña del navegador -->
-
 
 <style>
 
-/* ===== ESTILO GENERAL DE LA PÁGINA ===== */
+/* ===== ESTILO GENERAL ===== */
 
 body{
-font-family: Arial, sans-serif; /* tipo de letra */
-background:#f0f0f0; /* color de fondo */
-display:flex; /* centra contenido */
-justify-content:center; /* centra horizontal */
-align-items:center; /* centra vertical */
-height:100vh; /* ocupa toda la pantalla */
+font-family:Arial;
+background:#1c1c1c;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
 margin:0;
+color:white;
 }
 
 
-/* ===== CAJA PRINCIPAL ===== */
+/* ===== CONTENEDOR ===== */
 
-.contenedor{
+.calculadora{
 
-background:white; /* fondo blanco */
-padding:30px; /* espacio interno */
-border-radius:10px; /* bordes redondeados */
-box-shadow:0 0 10px rgba(0,0,0,0.2); /* sombra */
-max-width:450px; /* ancho máximo */
-width:90%; /* adaptable a celulares */
-text-align:center; /* texto centrado */
+background:black;
+padding:20px;
+border-radius:20px;
+width:340px;
+box-shadow:0 0 20px rgba(0,0,0,0.6);
 
 }
 
 
-/* ===== TITULO PRINCIPAL ===== */
+/* ===== TITULO SUPERIOR ===== */
 
-h1{
+.titulo{
 
-font-size:18px;
+text-align:center;
+font-weight:bold;
+margin-bottom:5px;
+
+}
+
+
+/* ===== PANTALLA PRINCIPAL ===== */
+
+#pantalla{
+
+width:100%;
+height:50px;
+font-size:28px;
+text-align:right;
+background:black;
+color:white;
+border:none;
 margin-bottom:10px;
 
 }
 
 
-/* ===== TEXTO DE COLABORADORES ===== */
+/* ===== PANTALLA DE OPERACION ===== */
 
-h2{
+#operacion{
 
-font-size:16px;
-color:#444;
-
-}
-
-
-/* ===== TEXTO PATROCINADO ===== */
-
-.patrocinado{
-
-color:red; /* color rojo */
-font-size:28px; /* letras grandes */
-font-weight:bold;
-margin-top:20px;
-
-}
-
-
-/* ===== CAMPOS DE NUMEROS ===== */
-
-input{
-
-width:90%;
+background:#111;
 padding:10px;
-margin:8px;
-font-size:16px;
+margin-bottom:10px;
+font-size:18px;
+text-align:center;
+
+}
+
+
+/* ===== HISTORIAL ===== */
+
+#historial{
+
+background:#111;
+max-height:100px;
+overflow-y:auto;
+padding:5px;
+font-size:14px;
+margin-bottom:10px;
 
 }
 
 
 /* ===== BOTONES ===== */
 
+.botones{
+
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+
+}
+
 button{
 
-padding:10px 15px;
-margin:5px;
-font-size:16px;
+height:60px;
+border-radius:50%;
+border:none;
+font-size:20px;
 cursor:pointer;
 
 }
 
+.numero{
 
-/* ===== RESULTADO ===== */
+background:#333;
+color:white;
 
-#resultado{
+}
 
-margin-top:20px;
-font-size:22px;
-font-weight:bold;
+.operador{
+
+background:#ff9500;
+color:white;
+
+}
+
+.funcion{
+
+background:#a5a5a5;
+color:black;
+
+}
+
+
+/* ===== PIE DE PAGINA ===== */
+
+.footer{
+
+text-align:center;
+margin-top:10px;
+font-size:12px;
+color:#ccc;
 
 }
 
@@ -118,101 +151,122 @@ font-weight:bold;
 
 <body>
 
-<div class="contenedor">
+<div class="calculadora">
 
-<!-- TITULO DEL PROYECTO -->
-
-<h1>
-Proyecto realizado gracias al profesor Jorge Mario
-</h1>
-
-<!-- COLABORADORES -->
-
-<h2>
-Con la colaboración de los estudiantes  
-Francisco Javier y Juan Sebastián
-</h2>
-
-<!-- PATROCINADOR -->
-
-<div class="patrocinado">
-PATROCINADO POR ENCA24
+<div class="titulo">
+Shield Carlos Monterrosa
 </div>
 
-
-<br>
-
-<!-- CAMPOS PARA INGRESAR NUMEROS -->
-
-<input type="number" id="n1" placeholder="Ingrese el primer número">
-
-<input type="number" id="n2" placeholder="Ingrese el segundo número">
+<input id="pantalla" type="text">
 
 
-<br>
+<div id="operacion"></div>
+
+<div id="historial"></div>
 
 
-<!-- BOTONES DE OPERACIONES -->
+<div class="botones">
 
-<button onclick="operar('sumar')">Sumar</button>
+<button class="funcion" onclick="limpiar()">C</button>
+<button class="funcion" onclick="borrar()">←</button>
+<button class="operador" onclick="agregar('/')">÷</button>
+<button class="operador" onclick="agregar('*')">×</button>
 
-<button onclick="operar('restar')">Restar</button>
+<button class="numero" onclick="agregar('7')">7</button>
+<button class="numero" onclick="agregar('8')">8</button>
+<button class="numero" onclick="agregar('9')">9</button>
+<button class="operador" onclick="agregar('-')">-</button>
 
-<button onclick="operar('multiplicar')">Multiplicar</button>
+<button class="numero" onclick="agregar('4')">4</button>
+<button class="numero" onclick="agregar('5')">5</button>
+<button class="numero" onclick="agregar('6')">6</button>
+<button class="operador" onclick="agregar('+')">+</button>
 
-<button onclick="operar('dividir')">Dividir</button>
+<button class="numero" onclick="agregar('1')">1</button>
+<button class="numero" onclick="agregar('2')">2</button>
+<button class="numero" onclick="agregar('3')">3</button>
+<button class="operador" onclick="calcular()">=</button>
 
+<button class="numero" onclick="agregar('0')">0</button>
+<button class="numero" onclick="agregar('.')">.</button>
 
-<!-- AQUI APARECE EL RESULTADO -->
+</div>
 
-<div id="resultado"></div>
+<div class="footer">
+Dios ROCA
+</div>
 
 </div>
 
 
 <script>
 
-/*
-FUNCION QUE REALIZA LAS OPERACIONES
-Recibe el tipo de operación que el usuario presiona
-*/
+/* ===== AGREGAR NUMEROS ===== */
 
-function operar(tipo){
+function agregar(valor){
 
-/* Tomamos los valores de los inputs */
+document.getElementById("pantalla").value += valor;
 
-let a = parseFloat(document.getElementById("n1").value);
-
-let b = parseFloat(document.getElementById("n2").value);
-
-
-/* Variable para guardar el resultado */
-
-let r;
-
-
-/* Evaluamos qué operación se pidió */
-
-if(tipo==="sumar"){
-r = a + b;
-}
-
-else if(tipo==="restar"){
-r = a - b;
-}
-
-else if(tipo==="multiplicar"){
-r = a * b;
-}
-
-else if(tipo==="dividir"){
-r = a / b;
 }
 
 
-/* Mostramos el resultado en la página */
+/* ===== LIMPIAR ===== */
 
-document.getElementById("resultado").innerText = "Resultado: " + r;
+function limpiar(){
+
+document.getElementById("pantalla").value="";
+document.getElementById("operacion").innerHTML="";
+
+}
+
+
+/* ===== BORRAR ===== */
+
+function borrar(){
+
+let valor=document.getElementById("pantalla").value;
+
+document.getElementById("pantalla").value=valor.slice(0,-1);
+
+}
+
+
+/* ===== CALCULAR ===== */
+
+function calcular(){
+
+let expresion=document.getElementById("pantalla").value;
+
+try{
+
+let resultado=eval(expresion);
+
+
+/* PANTALLA NORMAL */
+
+document.getElementById("pantalla").value=resultado;
+
+
+/* FORMATO OPERACION */
+
+let formato=expresion.replace(/([+\-*/])/,"<br>$1<br>");
+
+document.getElementById("operacion").innerHTML=
+formato+"<br>____<br>= "+resultado;
+
+
+/* HISTORIAL */
+
+document.getElementById("historial").innerHTML+=
+expresion+" = "+resultado+"<br>";
+
+}
+
+catch{
+
+document.getElementById("pantalla").value="Error";
+
+}
 
 }
 
