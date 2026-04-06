@@ -13,47 +13,58 @@
 /* ===== ESTILO GENERAL ===== */
 
 body{
+background:#1b1b1b;
 font-family:Arial;
-background:#1c1c1c;
 color:white;
-text-align:center;
 margin:0;
 padding:20px;
+display:flex;
+justify-content:center;
 }
 
-/* TITULO */
+/* ===== CONTENEDOR PRINCIPAL ===== */
 
-.titulo{
-font-size:22px;
-margin-bottom:20px;
-font-weight:bold;
+.contenedor{
+display:grid;
+grid-template-columns:250px 320px 250px;
+gap:20px;
+align-items:start;
 }
 
-/* CALCULADORA */
+/* ===== HISTORIAL ===== */
+
+.historial{
+background:black;
+padding:15px;
+border-radius:10px;
+height:420px;
+overflow-y:auto;
+}
+
+.historial h2{
+text-align:center;
+margin-bottom:10px;
+}
+
+/* ===== CALCULADORA ===== */
 
 .calculadora{
 background:black;
 padding:20px;
-border-radius:20px;
-width:340px;
-margin:auto;
-box-shadow:0px 0px 25px rgba(0,0,0,0.7);
+border-radius:15px;
 }
 
-/* PANTALLA */
-
-#pantalla{
-width:100%;
-height:50px;
+.pantalla{
+background:#111;
 font-size:28px;
+padding:12px;
+border-radius:10px;
 text-align:right;
-background:black;
-color:white;
-border:none;
 margin-bottom:15px;
+overflow-x:auto;
 }
 
-/* BOTONES */
+/* ===== BOTONES ===== */
 
 .botones{
 display:grid;
@@ -62,305 +73,207 @@ gap:10px;
 }
 
 button{
-height:60px;
-border-radius:50%;
+padding:18px;
+font-size:18px;
 border:none;
-font-size:20px;
-cursor:pointer;
-transition:0.15s;
-box-shadow:0px 5px 10px rgba(0,0,0,0.5);
-}
-
-/* EFECTOS */
-
-button:hover{
-transform:scale(1.1);
-}
-
-button:active{
-transform:scale(0.9);
-box-shadow:0px 2px 5px rgba(0,0,0,0.8);
-}
-
-/* ILUMINAR CUANDO SE USA TECLADO */
-
-.activo{
-background:#00ffcc !important;
-color:black !important;
-}
-
-/* COLORES */
-
-.numero{
+border-radius:50%;
 background:#333;
 color:white;
+cursor:pointer;
 }
 
-.numero:hover{
+button:hover{
 background:#555;
 }
 
 .operador{
-background:#ff9500;
-color:white;
-}
-
-.operador:hover{
-background:#ffb347;
-}
-
-.funcion{
-background:#a5a5a5;
+background:orange;
 color:black;
+font-weight:bold;
 }
 
-.funcion:hover{
-background:#cfcfcf;
-}
-
-/* SEGUNDA PANTALLA */
-
-.operacion{
-background:#111;
-margin-top:25px;
-padding:15px;
-width:340px;
-margin-left:auto;
-margin-right:auto;
-font-size:18px;
-}
-
-/* HISTORIAL */
-
-.historial{
-background:#111;
-margin-top:20px;
-padding:10px;
-width:340px;
-margin-left:auto;
-margin-right:auto;
-max-height:120px;
-overflow-y:auto;
-}
-
-/* CREDITOS */
+/* ===== CREDITOS ===== */
 
 .creditos{
-margin-top:30px;
-background:#000;
+background:black;
 padding:20px;
-width:340px;
-margin-left:auto;
-margin-right:auto;
 border-radius:10px;
+text-align:center;
+height:420px;
 }
 
-.rojo{
+.creditos h2{
 color:red;
-font-weight:bold;
+margin-bottom:20px;
+}
+
+.creditos p{
+line-height:1.8;
+}
+
+/* ===== RESPONSIVE PARA CELULAR ===== */
+
+@media (max-width:900px){
+
+.contenedor{
+grid-template-columns:1fr;
+}
+
+.historial,
+.calculadora,
+.creditos{
+width:100%;
+}
+
 }
 
 </style>
 
 </head>
 
+
 <body>
 
-<div class="titulo">
-Shield Carlos Monterrosa
+<div class="contenedor">
+
+
+<!-- HISTORIAL -->
+
+<div class="historial">
+
+<h2>Historial</h2>
+
+<div id="historial"></div>
+
 </div>
+
+
+<!-- CALCULADORA -->
 
 <div class="calculadora">
 
-<input id="pantalla" type="text" readonly>
+<div class="pantalla" id="pantalla">0</div>
 
 <div class="botones">
 
-<button id="c" class="funcion" onclick="limpiar()">C</button>
-<button id="borrar" class="funcion" onclick="borrar()">←</button>
-<button id="/" class="operador" onclick="agregar('/')">÷</button>
-<button id="*" class="operador" onclick="agregar('*')">×</button>
+<button onclick="agregar('7')">7</button>
+<button onclick="agregar('8')">8</button>
+<button onclick="agregar('9')">9</button>
+<button class="operador" onclick="agregar('/')">÷</button>
 
-<button id="7" class="numero" onclick="agregar('7')">7</button>
-<button id="8" class="numero" onclick="agregar('8')">8</button>
-<button id="9" class="numero" onclick="agregar('9')">9</button>
-<button id="-" class="operador" onclick="agregar('-')">-</button>
+<button onclick="agregar('4')">4</button>
+<button onclick="agregar('5')">5</button>
+<button onclick="agregar('6')">6</button>
+<button class="operador" onclick="agregar('*')">×</button>
 
-<button id="4" class="numero" onclick="agregar('4')">4</button>
-<button id="5" class="numero" onclick="agregar('5')">5</button>
-<button id="6" class="numero" onclick="agregar('6')">6</button>
-<button id="+" class="operador" onclick="agregar('+')">+</button>
+<button onclick="agregar('1')">1</button>
+<button onclick="agregar('2')">2</button>
+<button onclick="agregar('3')">3</button>
+<button class="operador" onclick="agregar('-')">-</button>
 
-<button id="1" class="numero" onclick="agregar('1')">1</button>
-<button id="2" class="numero" onclick="agregar('2')">2</button>
-<button id="3" class="numero" onclick="agregar('3')">3</button>
-<button id="enter" class="operador" onclick="calcular()">=</button>
+<button onclick="agregar('0')">0</button>
+<button onclick="agregar('.')">.</button>
+<button onclick="calcular()">=</button>
+<button class="operador" onclick="agregar('+')">+</button>
 
-<button id="0" class="numero" onclick="agregar('0')">0</button>
-<button id="." class="numero" onclick="agregar('.')">.</button>
-
-</div>
+<button onclick="limpiar()">C</button>
 
 </div>
 
-<div class="operacion" id="operacion">
-Aquí aparecerá la operación
 </div>
 
-<div class="historial" id="historial">
-Historial
-</div>
+
+<!-- CREDITOS -->
 
 <div class="creditos">
 
-Esta calculadora fue realizada con el apoyo del profesor  
-<span class="rojo">JORGE MARIO</span> del instituto  
-<span class="rojo">ENCA24</span>
+<h2>PATROCINADO POR ENCA24</h2>
+
+<p>
+
+Esta calculadora fue desarrollada con el apoyo del
 
 <br><br>
 
-por los estudiantes:
+<b>Profesor Jorge Mario</b>
 
+<br><br>
+
+Colaboradores
+
+<br><br>
+
+Francisco Javier
 <br>
+Juan Sebastián
 
-Juan Sebastian  
-Francisco Javier  
-Carlos Monterrosa
+<br><br>
+
+<b>Dios Roca</b>
+
+</p>
 
 </div>
 
-<audio id="sonido">
-<source src="https://www.soundjay.com/button/beep-07.wav">
-</audio>
+
+</div>
+
 
 <script>
 
-/* SONIDO */
+/* ===== VARIABLES ===== */
 
-function sonido(){
-document.getElementById("sonido").play();
-}
+let pantalla = document.getElementById("pantalla")
+let historial = document.getElementById("historial")
 
-/* ILUMINAR BOTON */
+let operacion = ""
 
-function iluminar(id){
-
-let boton=document.getElementById(id);
-
-if(boton){
-
-boton.classList.add("activo");
-
-setTimeout(function(){
-boton.classList.remove("activo");
-},150);
-
-}
-
-}
-
-/* AGREGAR NUMERO */
+/* ===== AGREGAR NUMERO U OPERADOR ===== */
 
 function agregar(valor){
 
-sonido();
-iluminar(valor);
-
-document.getElementById("pantalla").value += valor;
+operacion += valor
+pantalla.innerText = operacion
 
 }
 
-/* LIMPIAR */
 
-function limpiar(){
-
-sonido();
-iluminar("c");
-
-document.getElementById("pantalla").value="";
-document.getElementById("operacion").innerHTML="";
-
-}
-
-/* BORRAR */
-
-function borrar(){
-
-sonido();
-iluminar("borrar");
-
-let valor=document.getElementById("pantalla").value;
-
-document.getElementById("pantalla").value=valor.slice(0,-1);
-
-}
-
-/* CALCULAR */
+/* ===== CALCULAR RESULTADO ===== */
 
 function calcular(){
 
-sonido();
-iluminar("enter");
-
-let expresion=document.getElementById("pantalla").value;
-
 try{
 
-let resultado=eval(expresion);
+let resultado = eval(operacion)
 
-document.getElementById("pantalla").value=resultado;
+historial.innerHTML += operacion + " = " + resultado + "<br>"
 
-let formato=expresion.replace(/([+\-*/])/,"<br>$1<br>");
+pantalla.innerText = resultado
 
-document.getElementById("operacion").innerHTML=
-formato+"<br>____<br>= "+resultado;
-
-document.getElementById("historial").innerHTML+=
-expresion+" = "+resultado+"<br>";
+operacion = resultado
 
 }
 
 catch{
 
-document.getElementById("pantalla").value="Error";
+pantalla.innerText = "Error"
 
 }
 
 }
 
-/* CONTROL TECLADO */
 
-document.addEventListener("keydown", function(event){
+/* ===== LIMPIAR CALCULADORA ===== */
 
-let tecla=event.key;
+function limpiar(){
 
-if(!isNaN(tecla)){
-agregar(tecla);
+operacion = ""
+pantalla.innerText = "0"
+
 }
-
-if(tecla==="+" || tecla==="-" || tecla==="*" || tecla==="/"){
-agregar(tecla);
-}
-
-if(tecla==="."){
-agregar(".");
-}
-
-if(tecla==="Enter"){
-calcular();
-}
-
-if(tecla==="Backspace"){
-borrar();
-}
-
-if(tecla==="Escape" || tecla==="c" || tecla==="C"){
-limpiar();
-}
-
-});
 
 </script>
 
 </body>
+
 </html>
