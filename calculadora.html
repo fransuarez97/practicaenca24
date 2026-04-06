@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<!-- Indica al navegador que estamos usando HTML5 -->
+
+<html lang="es">
+<!-- Idioma de la página -->
+
+<head>
+
+<meta charset="UTF-8">
+<!-- Permite usar tildes y caracteres especiales -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Hace que la página se adapte a celulares y tablets -->
+
+<title>Calculadora ENCA24</title>
+<!-- Título que aparece en la pestaña del navegador -->
+
+
+<style>
+
+/* ===== ESTILO GENERAL DE LA PÁGINA ===== */
+
+body{
+font-family: Arial, sans-serif; /* tipo de letra */
+background:#f0f0f0; /* color de fondo */
+display:flex; /* centra contenido */
+justify-content:center; /* centra horizontal */
+align-items:center; /* centra vertical */
+height:100vh; /* ocupa toda la pantalla */
+margin:0;
+}
+
+
+/* ===== CAJA PRINCIPAL ===== */
+
+.contenedor{
+
+background:white; /* fondo blanco */
+padding:30px; /* espacio interno */
+border-radius:10px; /* bordes redondeados */
+box-shadow:0 0 10px rgba(0,0,0,0.2); /* sombra */
+max-width:450px; /* ancho máximo */
+width:90%; /* adaptable a celulares */
+text-align:center; /* texto centrado */
+
+}
+
+
+/* ===== TITULO PRINCIPAL ===== */
+
+h1{
+
+font-size:18px;
+margin-bottom:10px;
+
+}
+
+
+/* ===== TEXTO DE COLABORADORES ===== */
+
+h2{
+
+font-size:16px;
+color:#444;
+
+}
+
+
+/* ===== TEXTO PATROCINADO ===== */
+
+.patrocinado{
+
+color:red; /* color rojo */
+font-size:28px; /* letras grandes */
+font-weight:bold;
+margin-top:20px;
+
+}
+
+
+/* ===== CAMPOS DE NUMEROS ===== */
+
+input{
+
+width:90%;
+padding:10px;
+margin:8px;
+font-size:16px;
+
+}
+
+
+/* ===== BOTONES ===== */
+
+button{
+
+padding:10px 15px;
+margin:5px;
+font-size:16px;
+cursor:pointer;
+
+}
+
+
+/* ===== RESULTADO ===== */
+
+#resultado{
+
+margin-top:20px;
+font-size:22px;
+font-weight:bold;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="contenedor">
+
+<!-- TITULO DEL PROYECTO -->
+
+<h1>
+Proyecto realizado gracias al profesor Jorge Mario
+</h1>
+
+<!-- COLABORADORES -->
+
+<h2>
+Con la colaboración de los estudiantes  
+Francisco Javier y Juan Sebastián
+</h2>
+
+<!-- PATROCINADOR -->
+
+<div class="patrocinado">
+PATROCINADO POR ENCA24
+</div>
+
+
+<br>
+
+<!-- CAMPOS PARA INGRESAR NUMEROS -->
+
+<input type="number" id="n1" placeholder="Ingrese el primer número">
+
+<input type="number" id="n2" placeholder="Ingrese el segundo número">
+
+
+<br>
+
+
+<!-- BOTONES DE OPERACIONES -->
+
+<button onclick="operar('sumar')">Sumar</button>
+
+<button onclick="operar('restar')">Restar</button>
+
+<button onclick="operar('multiplicar')">Multiplicar</button>
+
+<button onclick="operar('dividir')">Dividir</button>
+
+
+<!-- AQUI APARECE EL RESULTADO -->
+
+<div id="resultado"></div>
+
+</div>
+
+
+<script>
+
+/*
+FUNCION QUE REALIZA LAS OPERACIONES
+Recibe el tipo de operación que el usuario presiona
+*/
+
+function operar(tipo){
+
+/* Tomamos los valores de los inputs */
+
+let a = parseFloat(document.getElementById("n1").value);
+
+let b = parseFloat(document.getElementById("n2").value);
+
+
+/* Variable para guardar el resultado */
+
+let r;
+
+
+/* Evaluamos qué operación se pidió */
+
+if(tipo==="sumar"){
+r = a + b;
+}
+
+else if(tipo==="restar"){
+r = a - b;
+}
+
+else if(tipo==="multiplicar"){
+r = a * b;
+}
+
+else if(tipo==="dividir"){
+r = a / b;
+}
+
+
+/* Mostramos el resultado en la página */
+
+document.getElementById("resultado").innerText = "Resultado: " + r;
+
+}
+
+</script>
+
+</body>
+</html>
