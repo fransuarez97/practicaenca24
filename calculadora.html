@@ -1,276 +1,55 @@
-<!DOCTYPE html>
-<html lang="es">
+/* ===== CONTROL DEL TECLADO ===== */
 
-<head>
+document.addEventListener("keydown", function(event){
 
-<meta charset="UTF-8">
+let tecla = event.key;
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+/* NUMEROS */
 
-<title>Calculadora ENCA24</title>
-
-<style>
-
-/* ===== ESTILO GENERAL ===== */
-
-body{
-font-family:Arial;
-background:#1c1c1c;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-margin:0;
-color:white;
+if(!isNaN(tecla)){
+agregar(tecla);
 }
 
+/* OPERADORES */
 
-/* ===== CONTENEDOR ===== */
-
-.calculadora{
-
-background:black;
-padding:20px;
-border-radius:20px;
-width:340px;
-box-shadow:0 0 20px rgba(0,0,0,0.6);
-
+if(tecla === "+"){
+agregar("+");
 }
 
-
-/* ===== TITULO SUPERIOR ===== */
-
-.titulo{
-
-text-align:center;
-font-weight:bold;
-margin-bottom:5px;
-
+if(tecla === "-"){
+agregar("-");
 }
 
-
-/* ===== PANTALLA PRINCIPAL ===== */
-
-#pantalla{
-
-width:100%;
-height:50px;
-font-size:28px;
-text-align:right;
-background:black;
-color:white;
-border:none;
-margin-bottom:10px;
-
+if(tecla === "*"){
+agregar("*");
 }
 
-
-/* ===== PANTALLA DE OPERACION ===== */
-
-#operacion{
-
-background:#111;
-padding:10px;
-margin-bottom:10px;
-font-size:18px;
-text-align:center;
-
+if(tecla === "/"){
+agregar("/");
 }
 
+/* DECIMAL */
 
-/* ===== HISTORIAL ===== */
-
-#historial{
-
-background:#111;
-max-height:100px;
-overflow-y:auto;
-padding:5px;
-font-size:14px;
-margin-bottom:10px;
-
+if(tecla === "."){
+agregar(".");
 }
 
+/* ENTER = CALCULAR */
 
-/* ===== BOTONES ===== */
-
-.botones{
-
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:10px;
-
+if(tecla === "Enter"){
+calcular();
 }
 
-button{
+/* BACKSPACE = BORRAR */
 
-height:60px;
-border-radius:50%;
-border:none;
-font-size:20px;
-cursor:pointer;
-
+if(tecla === "Backspace"){
+borrar();
 }
 
-.numero{
+/* ESCAPE O C = LIMPIAR */
 
-background:#333;
-color:white;
-
+if(tecla === "Escape" || tecla === "c" || tecla === "C"){
+limpiar();
 }
 
-.operador{
-
-background:#ff9500;
-color:white;
-
-}
-
-.funcion{
-
-background:#a5a5a5;
-color:black;
-
-}
-
-
-/* ===== PIE DE PAGINA ===== */
-
-.footer{
-
-text-align:center;
-margin-top:10px;
-font-size:12px;
-color:#ccc;
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="calculadora">
-
-<div class="titulo">
-Shield Carlos Monterrosa
-</div>
-
-<input id="pantalla" type="text">
-
-
-<div id="operacion"></div>
-
-<div id="historial"></div>
-
-
-<div class="botones">
-
-<button class="funcion" onclick="limpiar()">C</button>
-<button class="funcion" onclick="borrar()">←</button>
-<button class="operador" onclick="agregar('/')">÷</button>
-<button class="operador" onclick="agregar('*')">×</button>
-
-<button class="numero" onclick="agregar('7')">7</button>
-<button class="numero" onclick="agregar('8')">8</button>
-<button class="numero" onclick="agregar('9')">9</button>
-<button class="operador" onclick="agregar('-')">-</button>
-
-<button class="numero" onclick="agregar('4')">4</button>
-<button class="numero" onclick="agregar('5')">5</button>
-<button class="numero" onclick="agregar('6')">6</button>
-<button class="operador" onclick="agregar('+')">+</button>
-
-<button class="numero" onclick="agregar('1')">1</button>
-<button class="numero" onclick="agregar('2')">2</button>
-<button class="numero" onclick="agregar('3')">3</button>
-<button class="operador" onclick="calcular()">=</button>
-
-<button class="numero" onclick="agregar('0')">0</button>
-<button class="numero" onclick="agregar('.')">.</button>
-
-</div>
-
-<div class="footer">
-Dios ROCA
-</div>
-
-</div>
-
-
-<script>
-
-/* ===== AGREGAR NUMEROS ===== */
-
-function agregar(valor){
-
-document.getElementById("pantalla").value += valor;
-
-}
-
-
-/* ===== LIMPIAR ===== */
-
-function limpiar(){
-
-document.getElementById("pantalla").value="";
-document.getElementById("operacion").innerHTML="";
-
-}
-
-
-/* ===== BORRAR ===== */
-
-function borrar(){
-
-let valor=document.getElementById("pantalla").value;
-
-document.getElementById("pantalla").value=valor.slice(0,-1);
-
-}
-
-
-/* ===== CALCULAR ===== */
-
-function calcular(){
-
-let expresion=document.getElementById("pantalla").value;
-
-try{
-
-let resultado=eval(expresion);
-
-
-/* PANTALLA NORMAL */
-
-document.getElementById("pantalla").value=resultado;
-
-
-/* FORMATO OPERACION */
-
-let formato=expresion.replace(/([+\-*/])/,"<br>$1<br>");
-
-document.getElementById("operacion").innerHTML=
-formato+"<br>____<br>= "+resultado;
-
-
-/* HISTORIAL */
-
-document.getElementById("historial").innerHTML+=
-expresion+" = "+resultado+"<br>";
-
-}
-
-catch{
-
-document.getElementById("pantalla").value="Error";
-
-}
-
-}
-
-</script>
-
-</body>
-</html>
+});
