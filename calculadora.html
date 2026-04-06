@@ -1,55 +1,366 @@
-/* ===== CONTROL DEL TECLADO ===== */
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Calculadora ENCA24</title>
+
+<style>
+
+/* ===== ESTILO GENERAL ===== */
+
+body{
+font-family:Arial;
+background:#1c1c1c;
+color:white;
+text-align:center;
+margin:0;
+padding:20px;
+}
+
+/* TITULO */
+
+.titulo{
+font-size:22px;
+margin-bottom:20px;
+font-weight:bold;
+}
+
+/* CALCULADORA */
+
+.calculadora{
+background:black;
+padding:20px;
+border-radius:20px;
+width:340px;
+margin:auto;
+box-shadow:0px 0px 25px rgba(0,0,0,0.7);
+}
+
+/* PANTALLA */
+
+#pantalla{
+width:100%;
+height:50px;
+font-size:28px;
+text-align:right;
+background:black;
+color:white;
+border:none;
+margin-bottom:15px;
+}
+
+/* BOTONES */
+
+.botones{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+}
+
+button{
+height:60px;
+border-radius:50%;
+border:none;
+font-size:20px;
+cursor:pointer;
+transition:0.15s;
+box-shadow:0px 5px 10px rgba(0,0,0,0.5);
+}
+
+/* EFECTOS */
+
+button:hover{
+transform:scale(1.1);
+}
+
+button:active{
+transform:scale(0.9);
+box-shadow:0px 2px 5px rgba(0,0,0,0.8);
+}
+
+/* ILUMINAR CUANDO SE USA TECLADO */
+
+.activo{
+background:#00ffcc !important;
+color:black !important;
+}
+
+/* COLORES */
+
+.numero{
+background:#333;
+color:white;
+}
+
+.numero:hover{
+background:#555;
+}
+
+.operador{
+background:#ff9500;
+color:white;
+}
+
+.operador:hover{
+background:#ffb347;
+}
+
+.funcion{
+background:#a5a5a5;
+color:black;
+}
+
+.funcion:hover{
+background:#cfcfcf;
+}
+
+/* SEGUNDA PANTALLA */
+
+.operacion{
+background:#111;
+margin-top:25px;
+padding:15px;
+width:340px;
+margin-left:auto;
+margin-right:auto;
+font-size:18px;
+}
+
+/* HISTORIAL */
+
+.historial{
+background:#111;
+margin-top:20px;
+padding:10px;
+width:340px;
+margin-left:auto;
+margin-right:auto;
+max-height:120px;
+overflow-y:auto;
+}
+
+/* CREDITOS */
+
+.creditos{
+margin-top:30px;
+background:#000;
+padding:20px;
+width:340px;
+margin-left:auto;
+margin-right:auto;
+border-radius:10px;
+}
+
+.rojo{
+color:red;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="titulo">
+Shield Carlos Monterrosa
+</div>
+
+<div class="calculadora">
+
+<input id="pantalla" type="text" readonly>
+
+<div class="botones">
+
+<button id="c" class="funcion" onclick="limpiar()">C</button>
+<button id="borrar" class="funcion" onclick="borrar()">←</button>
+<button id="/" class="operador" onclick="agregar('/')">÷</button>
+<button id="*" class="operador" onclick="agregar('*')">×</button>
+
+<button id="7" class="numero" onclick="agregar('7')">7</button>
+<button id="8" class="numero" onclick="agregar('8')">8</button>
+<button id="9" class="numero" onclick="agregar('9')">9</button>
+<button id="-" class="operador" onclick="agregar('-')">-</button>
+
+<button id="4" class="numero" onclick="agregar('4')">4</button>
+<button id="5" class="numero" onclick="agregar('5')">5</button>
+<button id="6" class="numero" onclick="agregar('6')">6</button>
+<button id="+" class="operador" onclick="agregar('+')">+</button>
+
+<button id="1" class="numero" onclick="agregar('1')">1</button>
+<button id="2" class="numero" onclick="agregar('2')">2</button>
+<button id="3" class="numero" onclick="agregar('3')">3</button>
+<button id="enter" class="operador" onclick="calcular()">=</button>
+
+<button id="0" class="numero" onclick="agregar('0')">0</button>
+<button id="." class="numero" onclick="agregar('.')">.</button>
+
+</div>
+
+</div>
+
+<div class="operacion" id="operacion">
+Aquí aparecerá la operación
+</div>
+
+<div class="historial" id="historial">
+Historial
+</div>
+
+<div class="creditos">
+
+Esta calculadora fue realizada con el apoyo del profesor  
+<span class="rojo">JORGE MARIO</span> del instituto  
+<span class="rojo">ENCA24</span>
+
+<br><br>
+
+por los estudiantes:
+
+<br>
+
+Juan Sebastian  
+Francisco Javier  
+Carlos Monterrosa
+
+</div>
+
+<audio id="sonido">
+<source src="https://www.soundjay.com/button/beep-07.wav">
+</audio>
+
+<script>
+
+/* SONIDO */
+
+function sonido(){
+document.getElementById("sonido").play();
+}
+
+/* ILUMINAR BOTON */
+
+function iluminar(id){
+
+let boton=document.getElementById(id);
+
+if(boton){
+
+boton.classList.add("activo");
+
+setTimeout(function(){
+boton.classList.remove("activo");
+},150);
+
+}
+
+}
+
+/* AGREGAR NUMERO */
+
+function agregar(valor){
+
+sonido();
+iluminar(valor);
+
+document.getElementById("pantalla").value += valor;
+
+}
+
+/* LIMPIAR */
+
+function limpiar(){
+
+sonido();
+iluminar("c");
+
+document.getElementById("pantalla").value="";
+document.getElementById("operacion").innerHTML="";
+
+}
+
+/* BORRAR */
+
+function borrar(){
+
+sonido();
+iluminar("borrar");
+
+let valor=document.getElementById("pantalla").value;
+
+document.getElementById("pantalla").value=valor.slice(0,-1);
+
+}
+
+/* CALCULAR */
+
+function calcular(){
+
+sonido();
+iluminar("enter");
+
+let expresion=document.getElementById("pantalla").value;
+
+try{
+
+let resultado=eval(expresion);
+
+document.getElementById("pantalla").value=resultado;
+
+let formato=expresion.replace(/([+\-*/])/,"<br>$1<br>");
+
+document.getElementById("operacion").innerHTML=
+formato+"<br>____<br>= "+resultado;
+
+document.getElementById("historial").innerHTML+=
+expresion+" = "+resultado+"<br>";
+
+}
+
+catch{
+
+document.getElementById("pantalla").value="Error";
+
+}
+
+}
+
+/* CONTROL TECLADO */
 
 document.addEventListener("keydown", function(event){
 
-let tecla = event.key;
-
-/* NUMEROS */
+let tecla=event.key;
 
 if(!isNaN(tecla)){
 agregar(tecla);
 }
 
-/* OPERADORES */
-
-if(tecla === "+"){
-agregar("+");
+if(tecla==="+" || tecla==="-" || tecla==="*" || tecla==="/"){
+agregar(tecla);
 }
 
-if(tecla === "-"){
-agregar("-");
-}
-
-if(tecla === "*"){
-agregar("*");
-}
-
-if(tecla === "/"){
-agregar("/");
-}
-
-/* DECIMAL */
-
-if(tecla === "."){
+if(tecla==="."){
 agregar(".");
 }
 
-/* ENTER = CALCULAR */
-
-if(tecla === "Enter"){
+if(tecla==="Enter"){
 calcular();
 }
 
-/* BACKSPACE = BORRAR */
-
-if(tecla === "Backspace"){
+if(tecla==="Backspace"){
 borrar();
 }
 
-/* ESCAPE O C = LIMPIAR */
-
-if(tecla === "Escape" || tecla === "c" || tecla === "C"){
+if(tecla==="Escape" || tecla==="c" || tecla==="C"){
 limpiar();
 }
 
 });
+
+</script>
+
+</body>
+</html>
