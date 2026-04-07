@@ -111,5 +111,5 @@
 
         /* RESPONSIVE */
         @media (max-width: 900px) {
-         .contenedor{grid-template-columns: 1fr 1fr;} 
+         .contenedor{grid-template-columns: 1fr;} 
         }
