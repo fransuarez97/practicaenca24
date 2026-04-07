@@ -1,0 +1,115 @@
+ /* ===== ESTILO GENERAL ===== */
+        body {
+            background: #1b1b1b;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: white;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .contenedor {
+            display: grid;
+            grid-template-columns: 250px 320px 280px;
+            gap: 20px;
+            align-items: start;
+        }
+
+        /* ===== HISTORIAL ===== */
+        .historial {
+            background: #000;
+            padding: 15px;
+            border-radius: 10px;
+            height: 440px;
+            overflow-y: auto;
+            border: 1px solid #333;
+        }
+
+        /* ===== CALCULADORA ===== */
+        .calculadora {
+            background: #000;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .pantalla {
+            background: #111;
+            font-size: 32px;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: right;
+            margin-bottom: 15px;
+            height: 40px;
+            border: 1px solid #222;
+        }
+
+        /* ===== BOTONES CON HOVER ===== */
+        .botones {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        button {
+            padding: 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50%;
+            background: #2a2a2a;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease; /* Transición suave */
+        }
+
+        button:hover {
+            background: #444; /* Cambio de color al posicionar ratón */
+            transform: scale(1.05);
+        }
+
+        .operador {
+            background: #ff9500;
+            color: black;
+            font-weight: bold;
+        }
+
+        .operador:hover {
+            background: #ffb54d;
+        }
+
+        .btn-clear {
+            background: #a5a5a5;
+            color: black;
+        }
+
+        .btn-clear:hover {
+            background: #d4d4d4;
+        }
+
+        /* ===== CREDITOS MEJORADOS ===== */
+        .creditos {
+            background: #f4f4f4; /* Fondo claro para que resalten las letras negras */
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            height: 420px;
+            color: #000; /* Letras negras por defecto */
+        }
+
+        .destacado-rojo {
+            color: #ff0000;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .nombres-estudiantes {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .contenedor { grid-template-columns: 1fr; }
+        }
